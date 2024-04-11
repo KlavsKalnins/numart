@@ -38,39 +38,39 @@ export default function Home() {
     return false;
   };
 
-  const [trueColor, setTrueColor] = useState("black");
-  const [falseColor, setFalseColor] = useState("white");
+  const [trueColor, setTrueColor] = useState("#000000");
+  const [falseColor, setFalseColor] = useState("#ffffff");
 
   return (
     <main
       className={`flex min-h-screen flex-col items-center p-24 gap-4 ${inter.className}`}
     >
-      <div className="w-[150px] flex justify-center flex-col gap-2 text-center">
-      <div className="flex flex-col items-start">
-        <label>
-          Color 1:
+      <div className="w-[350px] flex justify-center flex-col gap-2 text-center">
+        <p className="text-xl font-bold">Numart</p>
+        <div className="w-full flex flex-col items-end gap-1">
           <input
-            type="color"
-            value={trueColor}
-            onChange={(e) => setTrueColor(e.target.value)}
+            className="bg-black text-white p-2 rounded"
+            type="date"
+            value={date}
+            onChange={handleDateChange}
           />
-        </label>
-        <label>
-          Color 2:
-          <input
-            type="color"
-            value={falseColor}
-            onChange={(e) => setFalseColor(e.target.value)}
-          />
-        </label>
-      </div>
-        <p>Numart</p>
-        <input
-          className="bg-black text-white p-2 rounded"
-          type="date"
-          value={date}
-          onChange={handleDateChange}
-        />
+          <label className="flex justify-center items-center">
+            <p>Color 1:</p>
+            <input
+              type="color"
+              value={trueColor}
+              onChange={(e) => setTrueColor(e.target.value)}
+            />
+          </label>
+          <label className="flex justify-center items-center">
+            <p>Color 2:</p>
+            <input
+              type="color"
+              value={falseColor}
+              onChange={(e) => setFalseColor(e.target.value)}
+            />
+          </label>
+        </div>
       </div>
       <div className="w-[350px]">
         <div className="grid grid-cols-9 gap-0 border-white border-2">
@@ -83,13 +83,18 @@ export default function Home() {
                     ? "bg-black"
                     : "bg-white"
                 }`}
-                style={{background: `${containsDateNumbers(pattern[row][col]) ? trueColor : falseColor}`}}
+                style={{
+                  background: `${
+                    containsDateNumbers(pattern[row][col])
+                      ? trueColor
+                      : falseColor
+                  }`,
+                }}
               />
             ))
           )}
         </div>
       </div>
-
     </main>
   );
 }
