@@ -5,6 +5,7 @@ import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+
   const cellNumbers: number[][] = [
     [1, 2, 3, 4, 5, 6, 7, 8, 9],
     [2, 4, 6, 8, 0, 2, 4, 6, 8],
@@ -18,6 +19,7 @@ export default function Home() {
   ];
 
   const [date, setDate] = useState<string>("1999-11-28");
+  const [pattern, setPattern] = useState<number[][]>(cellNumbers);
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -36,11 +38,32 @@ export default function Home() {
     return false;
   };
 
+  const [trueColor, setTrueColor] = useState("black");
+  const [falseColor, setFalseColor] = useState("white");
+
   return (
     <main
       className={`flex min-h-screen flex-col items-center p-24 gap-4 ${inter.className}`}
     >
       <div className="w-[150px] flex justify-center flex-col gap-2 text-center">
+      <div className="flex flex-col items-start">
+        <label>
+          Color 1:
+          <input
+            type="color"
+            value={trueColor}
+            onChange={(e) => setTrueColor(e.target.value)}
+          />
+        </label>
+        <label>
+          Color 2:
+          <input
+            type="color"
+            value={falseColor}
+            onChange={(e) => setFalseColor(e.target.value)}
+          />
+        </label>
+      </div>
         <p>Numart</p>
         <input
           className="bg-black text-white p-2 rounded"
@@ -56,10 +79,11 @@ export default function Home() {
               <div
                 key={`cell-${row}-${col}`}
                 className={`w-full h-8 ${
-                  containsDateNumbers(cellNumbers[row][col])
+                  containsDateNumbers(pattern[row][col])
                     ? "bg-black"
                     : "bg-white"
                 }`}
+                style={{background: `${containsDateNumbers(pattern[row][col]) ? trueColor : falseColor}`}}
               />
             ))
           )}
