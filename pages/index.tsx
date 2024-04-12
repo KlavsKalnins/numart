@@ -5,7 +5,6 @@ import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-
   const cellNumbers: number[][] = [
     [1, 2, 3, 4, 5, 6, 7, 8, 9],
     [2, 4, 6, 8, 0, 2, 4, 6, 8],
@@ -72,28 +71,36 @@ export default function Home() {
           </label>
         </div>
       </div>
-      <div className="w-[350px]">
-        <div className="grid grid-cols-9 gap-0 border-white border-2">
-          {[...Array(9)].map((_, row) =>
-            [...Array(9)].map((_, col) => (
-              <div
-                key={`cell-${row}-${col}`}
-                className={`w-full h-8 ${
-                  containsDateNumbers(pattern[row][col])
-                    ? "bg-black"
-                    : "bg-white"
-                }`}
-                style={{
-                  background: `${
-                    containsDateNumbers(pattern[row][col])
-                      ? trueColor
-                      : falseColor
-                  }`,
-                }}
-              />
-            ))
-          )}
-        </div>
+      <div className="flex flex-col w-[350px] border-white border-2">
+        {[...Array(2)].map((_, rowIndex) => (
+          <div key={`row-${rowIndex}`} className="w-full flex">
+            {[...Array(2)].map((_, colIndex) => (
+              <div key={`col-${colIndex}`} className="w-[350px]">
+                <div className="grid grid-cols-9 gap-0">
+                  {[...Array(9)].map((_, row) =>
+                    [...Array(9)].map((_, col) => (
+                      <div
+                        key={`cell-${row}-${col}`}
+                        className={`w-5 h-5 ${
+                          containsDateNumbers(pattern[row][col])
+                            ? "bg-black"
+                            : "bg-white"
+                        }`}
+                        style={{
+                          background: `${
+                            containsDateNumbers(pattern[row][col])
+                              ? trueColor
+                              : falseColor
+                          }`,
+                        }}
+                      />
+                    ))
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </main>
   );
